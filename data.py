@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import dataset
 from torchvision.datasets.folder import default_loader
-from utils import list_pictures
+# from utils import list_pictures
 from torchvision import transforms
 from torch.utils.data import dataloader
 
@@ -14,11 +14,10 @@ class Data:
     def __init__(self, args):
         self.args = args
         transform_list = [
-            transforms.Resize((args.height, args.width), interpolation=3),
             transforms.RandomChoice(
                 [transforms.RandomHorizontalFlip(),
                  transforms.RandomGrayscale(),
-                 transforms.RandomRotation(20)
+                 transforms.RandomRotation(20),
                  ]
             ),
             transforms.ToTensor(),
@@ -30,7 +29,7 @@ class Data:
                                                   shuffle=True,
                                                   batch_size=args.train_batch_size,
                                                   num_workers=args.nThread
-												 )
+                                                  )
 
 
 class Dataset(dataset.Dataset):
@@ -42,15 +41,18 @@ class Dataset(dataset.Dataset):
 
     def __getitem__(self, index):
         name, age = self.labels[index]
-        img = self.loader(os.path.join(self.root, name))
-        age = int(age)
-        label = [normal_sampling(age, i) for i in range(101)]
-        label = torch.Tensor(label)
-        label = F.normalize(label, p=1, dim=0)
+        img_l = self.loader(os.path.join(self.root, name))
+        img_s = img_l.resize((192, 192))
 
+        label = [normal_sampling(int(age), i) for i in range(101)]
+        label = [i if i > 1e-15 else 1e-15 for i in label]
+        label = torch.Tensor(label)
+
+        age = int(age)
         if self.transform is not None:
-            img = self.transform(img)
-        return img, label, age
+            img_l = self.transform(img_l)
+            img_s = self.transform(img_s)
+        return img_l, img_s, label, age
 
     def __len__(self):
         return len(self.labels)

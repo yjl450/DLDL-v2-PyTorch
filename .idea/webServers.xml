@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d30b8601-d34f-43ab-8cba-e7893ec46263" name="GPU" url="http://10.72.55.220">
+        <fileTransfer host="10.72.55.220" port="22" rootFolder="/data1/puheng/code/DLDL-v2" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
