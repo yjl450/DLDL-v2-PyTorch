@@ -41,8 +41,7 @@ class Dataset(dataset.Dataset):
 
     def __getitem__(self, index):
         name, age = self.labels[index]
-        img_l = self.loader(os.path.join(self.root, name))
-        img_s = img_l.resize((192, 192))
+        img = self.loader(os.path.join(self.root, name))
 
         label = [normal_sampling(int(age), i) for i in range(101)]
         label = [i if i > 1e-15 else 1e-15 for i in label]
@@ -50,9 +49,8 @@ class Dataset(dataset.Dataset):
 
         age = int(age)
         if self.transform is not None:
-            img_l = self.transform(img_l)
-            img_s = self.transform(img_s)
-        return img_l, img_s, label, age
+            img = self.transform(img)
+        return img, label, age
 
     def __len__(self):
         return len(self.labels)
