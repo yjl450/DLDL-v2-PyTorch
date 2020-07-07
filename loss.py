@@ -6,7 +6,7 @@ def kl_loss(inputs, labels):
     criterion = nn.KLDivLoss(reduce=False)
     outputs = torch.log(inputs)
     loss = criterion(outputs, labels)
-    loss = loss.sum()/loss.shape[0]
+    loss = loss.sum()/loss.shape[0] # batch average loss
     return loss
 
 def L1_loss(inputs, labels):

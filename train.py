@@ -23,7 +23,7 @@ def get_model(pretrained=False):
 
 def main():
     model = get_model()
-    device = torch.device('cuda')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
     loader = data.Data(args).train_loader
     rank = torch.Tensor([i for i in range(101)]).cuda()
