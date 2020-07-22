@@ -10,6 +10,9 @@ parser.add_argument('--val_img', type=str,
                     default='path to images for test')
 parser.add_argument('--val_label', type=str,
                     default='path to .csv file which contains labels of images for test')
+parser.add_argument('--dataset', type=str, default='dataset name')
+parser.add_argument('--data_dir', type=str, default='dataset folder')
+
 """optimizer options"""
 parser.add_argument("--lr", type=float, default=1e-3, help='learning rate')
 parser.add_argument('--optimizer', default='SGD', choices=('SGD', 'ADAM', 'NADAM', 'RMSprop'), help='optimizer to use (SGD | ADAM | NADAM | RMSprop)')
@@ -29,6 +32,6 @@ parser.add_argument("--height", type=int, default=224, help='height of input ima
 parser.add_argument("--width", type=int, default=224, help='width of input image')
 
 """model"""
-parser.add_argument("--model_name", type=str, default='TinyAge', help='which model to train')
+parser.add_argument("--model_name", type=str, default='ThinAge', help='which model to train')
 parser.add_argument('--nThread', type=int, default=12, help='number of threads for data loading')
 args = parser.parse_args()
