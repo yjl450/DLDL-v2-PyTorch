@@ -49,10 +49,10 @@ class Data:
 
 class Dataset(dataset.Dataset):
     def __init__(self, args, data_type, transform):
-        self.root = args.train_img
+        # self.root = args.train_img
         # self.transform = transform
-        self.labels = [label[0:-1]
-                       for label in csv.reader(open(args.train_label, 'r'))]
+        # self.labels = [label[0:-1]
+        #                for label in csv.reader(open(args.train_label, 'r'))]
         self.loader = default_loader
         self.transform = transform
 
