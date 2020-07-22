@@ -54,6 +54,7 @@ def main():
 			current_time = time.time()
 			print('[Epoch:{}] \t[batch:{}]\t[loss={:.4f}]'.format(
 				i, j, total_loss.item()))
+		torch.cuda.empty_cache()
 		model.eval()
 		count = 0
 		error = 0
@@ -78,6 +79,7 @@ def main():
 			torch.save(model, "checkpoint/epoch{:03d}_{}_{:.5f}_{:.4f}_{}_{}.pth".format(i, args.dataset, total_loss/count, best_mae, datetime.now().strftime("%Y%m%d"), args.model_name))
 		else:
 			print("Epoch: {}\tVal loss: {:.5f}\tBest Val MAE: {:.4f} not improved, current MAE: {:.4f}".format(i, total_loss/count, best_mae, mae))
+		torch.cuda.empty_cache()
 		# torch.save(model.state_dict(),
 		#            './pretrained/{}_dict.pt'.format(args.model_name))
 		# print('Test: Epoch=[{}]'.format(i))
