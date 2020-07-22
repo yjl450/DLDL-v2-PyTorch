@@ -58,18 +58,19 @@ def main():
 		count = 0
 		error = 0
 		total_loss = 0
-		for inputs in val_loader:
-			img, label, age = inputs
-			count += len(age)
-			img = img.to(device)
-			label = label.to(device)
-			age = age.to(device)
-			outputs = model(img)
-			ages = torch.sum(outputs*rank, dim=1)
-			loss1 = loss.kl_loss(outputs, label)
-			loss2 = loss.L1_loss(ages, age)
-			total_loss += loss1 + loss2
-			error += torch.sum(abs(ages - age))
+		with torch.no_grad():
+			for inputs in val_loader:
+				img, label, age = inputs
+				count += len(age)
+				img = img.to(device)
+				label = label.to(device)
+				age = age.to(device)
+				outputs = model(img)
+				ages = torch.sum(outputs*rank, dim=1)
+				loss1 = loss.kl_loss(outputs, label)
+				loss2 = loss.L1_loss(ages, age)
+				total_loss += loss1 + loss2
+				error += torch.sum(abs(ages - age))
 		mae = error / count
 		if mae < best_mae:
 			print("Epoch: {}\tVal loss: {:.5f}\tVal MAE: {:.4f} improved from {:.4f}".format(i, total_loss/count, mae, best_mae))
