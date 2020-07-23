@@ -144,4 +144,5 @@ class ThinAge(nn.Module):
 
 if __name__ == '__main__':
     model = ThinAge()
-    torch.save(model, './checkpoint/ThinAge.pt')
+    # torch.save(model, './checkpoint/ThinAge.pt')
+    print(model)
