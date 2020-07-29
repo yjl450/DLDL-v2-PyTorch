@@ -89,6 +89,8 @@ class Dataset(dataset.Dataset):
     def __getitem__(self, idx):
         img_path = self.x[idx]
         img = Image.open(img_path)
+        if img.mode is not "RGB":
+            img = img.convert("RGB")
         # img.show()
         img = img.rotate(
             self.rotate[idx], resample=Image.BICUBIC, expand=True)  # Alignment
