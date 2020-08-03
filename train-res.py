@@ -76,7 +76,7 @@ def main():
 		if mae < best_mae:
 			print("Epoch: {}\tVal loss: {:.5f}\tVal MAE: {:.4f} improved from {:.4f}".format(i, total_loss/count, mae, best_mae))
 			best_mae = mae
-			torch.save(model, "checkpoint/epoch{:03d}_{}_{:.5f}_{:.4f}_{}_{}_pretraining.pth".format(i, args.dataset, total_loss/count, best_mae, datetime.now().strftime("%Y%m%d"), args.model_name))
+			torch.save(model, "checkpoint/epoch{:03d}_{}_{:.5f}_{:.4f}_{}_{}.pth".format(i, args.dataset, total_loss/count, best_mae, datetime.now().strftime("%Y%m%d"), args.model_name))
 		else:
 			print("Epoch: {}\tVal loss: {:.5f}\tBest Val MAE: {:.4f} not improved, current MAE: {:.4f}".format(i, total_loss/count, best_mae, mae))
 		torch.cuda.empty_cache()
