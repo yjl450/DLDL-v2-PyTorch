@@ -5,7 +5,6 @@ import torch.nn.functional as F
 def kl_loss(inputs, labels):
     criterion = nn.KLDivLoss(reduction="batchmean")
     outputs = torch.log(inputs)
-    print(outputs)
     loss = criterion(outputs, labels)
     # loss = loss.sum()/loss.shape[0] # batch average loss
     return loss
