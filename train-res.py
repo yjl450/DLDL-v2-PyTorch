@@ -69,6 +69,7 @@ def main():
 				age = age.to(device)
 				outputs = model(img)
 				ages = torch.sum(outputs*rank, dim=1)
+				outputs = torch.sigmoid(outputs)
 				loss1 = loss.kl_loss(outputs, label)
 				loss2 = loss.L1_loss(ages, age)
 				total_loss += loss1 + loss2
