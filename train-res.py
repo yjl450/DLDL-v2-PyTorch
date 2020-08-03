@@ -30,7 +30,7 @@ def main():
 	model = model.to(device)
 	loader = data.Data(args, "train").train_loader
 	val_loader = data.Data(args, "valid").valid_loader
-	rank = torch.Tensor([i for i in range(101)]).cuda()
+	rank = torch.Tensor([i for i in range(101)]).to(device)
 	best_mae = 10000
 	for i in range(args.epochs):
 		lr = 0.001 if i < 30 else 0.0001
@@ -45,9 +45,9 @@ def main():
 			age = age.to(device)
 			optimizer.zero_grad()
 			outputs = model(img)
-			outputs = torch.sigmoid(outputs)
 			ages = torch.sum(outputs*rank, dim=1)
 			loss1 = loss.kl_loss(outputs, label)
+			print(loss1)
 			loss2 = loss.L1_loss(ages, age)
 			total_loss = loss1 + loss2
 			total_loss.backward()
@@ -55,7 +55,7 @@ def main():
 			current_time = time.time()
 			print('[Epoch:{}] \t[batch:{}]\t[loss={:.4f}]'.format(
 				i, j, total_loss.item()))
-		torch.cuda.empty_cache()
+		# torch.cuda.empty_cache()
 		model.eval()
 		count = 0
 		error = 0
@@ -69,7 +69,6 @@ def main():
 				age = age.to(device)
 				outputs = model(img)
 				ages = torch.sum(outputs*rank, dim=1)
-				outputs = torch.sigmoid(outputs)
 				loss1 = loss.kl_loss(outputs, label)
 				loss2 = loss.L1_loss(ages, age)
 				total_loss += loss1 + loss2
@@ -81,7 +80,7 @@ def main():
 			torch.save(model, "checkpoint/epoch{:03d}_{}_{:.5f}_{:.4f}_{}_{}_pretraining.pth".format(i, args.dataset, total_loss/count, best_mae, datetime.now().strftime("%Y%m%d"), args.model_name))
 		else:
 			print("Epoch: {}\tVal loss: {:.5f}\tBest Val MAE: {:.4f} not improved, current MAE: {:.4f}".format(i, total_loss/count, best_mae, mae))
-		torch.cuda.empty_cache()
+		# torch.cuda.empty_cache()
 		# torch.save(model.state_dict(),
 		#            './pretrained/{}_dict.pt'.format(args.model_name))
 		# print('Test: Epoch=[{}]'.format(i))

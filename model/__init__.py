@@ -38,7 +38,7 @@ class TinyAge(nn.Module):
         )
         self.fc1 = nn.Sequential(
             nn.Linear(128, 101),
-            nn.Sigmoid()
+            nn.Softmax(dim = 1)
         )
 
         for m in self.modules():
@@ -103,7 +103,7 @@ class ThinAge(nn.Module):
         )
         self.fc = nn.Sequential(
             nn.Linear(256, 101),
-            nn.Sigmoid()
+            nn.Softmax(dim = 1)
         )
 
         for m in self.modules():

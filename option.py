@@ -27,7 +27,7 @@ parser.add_argument('--gamma', type=float, default=0.8, help='learning rate deca
 parser.add_argument('--reset', action='store_true', help='reset the training')
 parser.add_argument("--epochs", type=int, default=60, help='number of epochs to train')
 parser.add_argument("--weight_decay", type=float, default=0)
-parser.add_argument("--train_batch_size", type=int, default=128)
+parser.add_argument("--train_batch_size", type=int, default=1)
 parser.add_argument("--val_batch_size", type=int, default=1)
 parser.add_argument("--height", type=int, default=224, help='height of input image')
 parser.add_argument("--width", type=int, default=224, help='width of input image')
