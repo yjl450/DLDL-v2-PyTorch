@@ -79,6 +79,8 @@ def main():
 		count = 0
 		error = 0
 		total_loss = 0
+		correct_count = torch.zeros(7)
+		correct_group = torch.zeros(7)
 		with torch.no_grad():
 			for inputs in val_loader:
 				img, label, age = inputs
@@ -95,7 +97,7 @@ def main():
 				loss2 = loss.L1_loss(ages, age)
 				total_loss += loss1 + loss2
 				error += torch.sum(abs(ages - age))
-
+				
 				for ind, a in enumerate(ages): 
 					if abs(age[ind].item() - a) < 1:
 						correct_count[get_group(age[ind].item())] += 1
