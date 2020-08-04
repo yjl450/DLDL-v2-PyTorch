@@ -11,6 +11,21 @@ from datetime import datetime
 
 models = {'ThinAge': ThinAge, 'TinyAge': TinyAge}
 
+def get_group(age):
+	if 0 <= age <= 5:
+		return 0
+	if 6 <= age <= 10:
+		return 1
+	if 11 <= age <= 20:
+		return 2
+	if 21 <= age <= 30:
+		return 3
+	if 31 <= age <= 40:
+		return 4
+	if 41 <= age <= 60:
+		return 5
+	if 61 <= age:
+		return 6
 
 def get_model(pretrained=False):
 	model = args.model_name
