@@ -67,9 +67,9 @@ def main():
 		with torch.no_grad():
 			for inputs in val_loader:
 				img, label, age = inputs
-                if to_count:
-                    for p in age:
-                        group_count[get_group(p.item())] += 1
+				if to_count:
+					for p in age:
+						group_count[get_group(p.item())] += 1
 				count += len(age)
 				img = img.to(device)
 				label = label.to(device)
@@ -110,11 +110,11 @@ def main():
 	
 	print("Finish, with best MAE")
 	print("Correct group:")
-    print(rate[0])
-    print(rate[0]/group_count)
-    print("Correct age:")
-    print(rate[1])
-    print(rate[1]/group_count)
+	print(rate[0])
+	print(rate[0]/group_count)
+	print("Correct age:")
+	print(rate[1])
+	print(rate[1]/group_count)
 	
 
 
