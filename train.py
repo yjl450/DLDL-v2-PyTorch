@@ -108,7 +108,7 @@ def main():
 				if p == 0:
 					group_count[ind] = 1
 			to_count = False
-		print("Correct group rate:")
+		print("\nCorrect group rate:")
 		print(correct_group/group_count)
 		print("Correct age rate:")
 		print(correct_count/group_count)
