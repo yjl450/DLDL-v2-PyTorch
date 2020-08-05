@@ -72,7 +72,7 @@ class TinyAge(nn.Module):
         x = self.HP(x)
         x = x.view((x.size(0), -1))
         x = self.fc1(x.view((x.size(0), -1)))
-        x = F.normalize(x, p=1, dim=1)
+        # x = F.normalize(x, p=1, dim=1)
 
         return x
 
@@ -138,7 +138,7 @@ class ThinAge(nn.Module):
         x = self.HP(x)
         x = x.view((x.size(0), -1))
         x = self.fc(x.view((x.size(0), -1)))
-        x = F.normalize(x, p=1, dim=1)
+        # x = F.normalize(x, p=1, dim=1)
 
         return x
 
